@@ -210,17 +210,19 @@
         // Get Stocks by Price Range
         document.getElementById('filter-stocks-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            const priceRange = {
-                min: document.getElementById('min-price').value, 
-                max: maxPrice = document.getElementById('max-price').value
-            };
-            axiosInstance.get('/stock/filter', priceRange)
-                .then(response => {
-                    document.getElementById('filter-stocks-result').textContent = JSON.stringify(response.data, null, 2);
-                })
-                .catch(error => {
-                    document.getElementById('filter-stocks-result').textContent = error.message;
-                });
+            const minPrice = document.getElementById('min-price').value;
+            const maxPrice = document.getElementById('max-price').value;
+
+            axiosInstance.post('/stock/filter', {
+                min: minPrice,
+                max: maxPrice
+            })
+            .then(response => {
+                document.getElementById('filter-stocks-result').textContent = JSON.stringify(response.data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById('filter-stocks-result').textContent = error.message;
+            });
         });
 
         // Create New Stock

@@ -13,13 +13,14 @@ import com.neueda.stockapi.service.StockService;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/stock")
+@CrossOrigin 
 public class StockController {
     
     // the @AllArgsConstructor will tell Spring to automatically inject 
@@ -38,7 +39,7 @@ public class StockController {
     }
 
     // return all stocks with price between min, max specified in request payload
-    @GetMapping("/filter")
+    @PostMapping("/filter")
     public ResponseEntity<Object> filterStocks(@Valid @RequestBody FilterRequest payload, BindingResult result) {
 
         if (payload.getMin() > payload.getMax()) result.rejectValue("min", "", "Invalid range provided. Ensure min < max");
