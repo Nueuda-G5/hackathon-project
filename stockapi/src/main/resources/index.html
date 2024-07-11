@@ -214,7 +214,7 @@
                 min: document.getElementById('min-price').value, 
                 max: maxPrice = document.getElementById('max-price').value
             };
-            axiosInstance.get('/stock/filter', newStock)
+            axiosInstance.get('/stock/filter', priceRange)
                 .then(response => {
                     document.getElementById('filter-stocks-result').textContent = JSON.stringify(response.data, null, 2);
                 })
