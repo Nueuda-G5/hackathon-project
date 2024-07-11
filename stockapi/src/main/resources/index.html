@@ -210,9 +210,11 @@
         // Get Stocks by Price Range
         document.getElementById('filter-stocks-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            const minPrice = document.getElementById('min-price').value;
-            const maxPrice = document.getElementById('max-price').value;
-            axiosInstance.get('/stock/filter', { params: { min: minPrice, max: maxPrice } })
+            const priceRange = {
+                min: document.getElementById('min-price').value, 
+                max: maxPrice = document.getElementById('max-price').value
+            };
+            axiosInstance.get('/stock/filter', newStock)
                 .then(response => {
                     document.getElementById('filter-stocks-result').textContent = JSON.stringify(response.data, null, 2);
                 })
