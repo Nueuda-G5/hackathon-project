@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 5 - Stock API</title>
+
+    <!-- Include Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .preformatted {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Stock API</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#get-stock">Get Stock</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#all-stocks">All Stocks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#filter-stocks">Filter Stocks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#create-stock">Create Stock</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#edit-stock">Edit Stock</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#delete-stock">Delete Stock</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Get Individual Stock -->
+        <div id="get-stock" class="card">
+            <div class="card-header">
+                Get Individual Stock
+            </div>
+            <div class="card-body">
+                <form id="get-stock-form" class="form-inline">
+                    <label for="get-stock-ticker" class="mr-2">Ticker:</label>
+                    <input type="text" id="get-stock-ticker" class="form-control mr-2" required>
+                    <button type="submit" class="btn btn-primary">Get Stock</button>
+                </form>
+                <pre id="get-stock-result" class="preformatted mt-3"></pre>
+            </div>
+        </div>
+
+        <!-- Get All Stocks -->
+        <div id="all-stocks" class="card">
+            <div class="card-header">
+                Get All Stocks
+            </div>
+            <div class="card-body">
+                <button id="get-all-stocks" class="btn btn-primary">Get All Stocks</button>
+                <pre id="all-stocks-result" class="preformatted mt-3"></pre>
+            </div>
+        </div>
+
+        <!-- Get Stocks by Price Range -->
+        <div id="filter-stocks" class="card">
+            <div class="card-header">
+                Get Stocks by Price Range
+            </div>
+            <div class="card-body">
+                <form id="filter-stocks-form" class="form-inline">
+                    <label for="min-price" class="mr-2">Min Price:</label>
+                    <input type="number" id="min-price" class="form-control mr-2" step="0.01" required>
+                    <label for="max-price" class="mr-2">Max Price:</label>
+                    <input type="number" id="max-price" class="form-control mr-2" step="0.01" required>
+                    <button type="submit" class="btn btn-primary">Filter Stocks</button>
+                </form>
+                <pre id="filter-stocks-result" class="preformatted mt-3"></pre>
+            </div>
+        </div>
+
+        <!-- Create New Stock -->
+        <div id="create-stock" class="card">
+            <div class="card-header">
+                Create New Stock
+            </div>
+            <div class="card-body">
+                <form id="create-stock-form">
+                    <div class="form-group">
+                        <label for="new-ticker">Ticker:</label>
+                        <input type="text" id="new-ticker" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-price">Price:</label>
+                        <input type="number" id="new-price" class="form-control" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-company">Company Name:</label>
+                        <input type="text" id="new-company" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Stock</button>
+                </form>
+                <pre id="create-stock-result" class="preformatted mt-3"></pre>
+            </div>
+        </div>
+
+        <!-- Edit Existing Stock -->
+        <div id="edit-stock" class="card">
+            <div class="card-header">
+                Edit Existing Stock
+            </div>
+            <div class="card-body">
+                <form id="edit-stock-form">
+                    <div class="form-group">
+                        <label for="edit-ticker">Ticker:</label>
+                        <input type="text" id="edit-ticker" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-price">New Price:</label>
+                        <input type="number" id="edit-price" class="form-control" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-company">New Company Name:</label>
+                        <input type="text" id="edit-company" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Edit Stock</button>
+                </form>
+                <pre id="edit-stock-result" class="preformatted mt-3"></pre>
+            </div>
+        </div>
+
+        <!-- Delete Stock -->
+        <div id="delete-stock" class="card">
+            <div class="card-header">
+                Delete Stock
+            </div>
+            <div class="card-body">
+                <form id="delete-stock-form" class="form-inline">
+                    <label for="delete-ticker" class="mr-2">Ticker:</label>
+                    <input type="text" id="delete-ticker" class="form-control mr-2" required>
+                    <button type="submit" class="btn btn-danger">Delete Stock</button>
+                </form>
+                <pre id="delete-stock-result" class="preformatted mt-3"></pre>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Axios instance
+        const axiosInstance = axios.create({
+            baseURL: 'http://localhost:8080',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        // Get Individual Stock
+        document.getElementById('get-stock-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const ticker = document.getElementById('get-stock-ticker').value;
+            axiosInstance.get(`/stock/${ticker}`)
+                .then(response => {
+                    document.getElementById('get-stock-result').textContent = JSON.stringify(response.data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('get-stock-result').textContent = error.message;
+                });
+        });
+
+        // Get All Stocks
+        document.getElementById('get-all-stocks').addEventListener('click', function() {
+            axiosInstance.get('/stock/all')
+                .then(response => {
+                    document.getElementById('all-stocks-result').textContent = JSON.stringify(response.data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('all-stocks-result').textContent = error.message;
+                });
+        });
+
+        // Get Stocks by Price Range
+        document.getElementById('filter-stocks-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const minPrice = document.getElementById('min-price').value;
+            const maxPrice = document.getElementById('max-price').value;
+            axiosInstance.get('/stock/filter', { params: { min: minPrice, max: maxPrice } })
+                .then(response => {
+                    document.getElementById('filter-stocks-result').textContent = JSON.stringify(response.data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('filter-stocks-result').textContent = error.message;
+                });
+        });
+
+        // Create New Stock
+        document.getElementById('create-stock-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newStock = {
+                ticker: document.getElementById('new-ticker').value,
+                price: document.getElementById('new-price').value,
+                companyName: document.getElementById('new-company').value
+            };
+            axiosInstance.post('/stock', newStock)
+                .then(response => {
+                    document.getElementById('create-stock-result').textContent = JSON.stringify(response.data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('create-stock-result').textContent = error.message;
+                });
+        });
+
+        // Edit Existing Stock
+        document.getElementById('edit-stock-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const editStock = {
+                ticker: document.getElementById('edit-ticker').value,
+                price: document.getElementById('edit-price').value,
+                companyName: document.getElementById('edit-company').value
+            };
+            axiosInstance.put('/stock', editStock)
+                .then(response => {
+                    document.getElementById('edit-stock-result').textContent = JSON.stringify(response.data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('edit-stock-result').textContent = error.message;
+                });
+        });
+
+        // Delete Stock
+        document.getElementById('delete-stock-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const ticker = document.getElementById('delete-ticker').value;
+            axiosInstance.delete(`/stock/${ticker}`)
+                .then(response => {
+                    document.getElementById('delete-stock-result').textContent = 'Stock deleted successfully';
+                })
+                .catch(error => {
+                    document.getElementById('delete-stock-result').textContent = error.message;
+                });
+        });
+    </script>
+</body>
+
+</html>
