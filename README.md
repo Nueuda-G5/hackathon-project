@@ -56,7 +56,7 @@ Status : 200 Ok
 #### 3. Get all stocks between price range
 Retrieve all stocks whose price falls between min and max
 ```
-  GET /stock/filter
+  POST /stock/filter
 ```
 Example of payload body expected by endpoint
 ```
